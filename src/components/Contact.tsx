@@ -1,5 +1,7 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone } from "lucide-react";
@@ -9,25 +11,26 @@ const Contact = () => {
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
-      value: "hello@portfolio.dev",
-      href: "mailto:hello@portfolio.dev"
+      value: "bakerboonsa@gmail.com",
+      href: "mailto:bakerboonsa@gmail.com"
     },
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567"
+      value: "+251 949 303 825",
+      href: "tel:+251949303825"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Location",
-      value: "San Francisco, CA",
+      value: "Ethiopia",
       href: "#"
     }
   ];
 
   return (
     <section className="py-20 px-6 max-w-7xl mx-auto">
+      {/* Heading */}
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold mb-6">
           Get In <span className="gradient-text">Touch</span>

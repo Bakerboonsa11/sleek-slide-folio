@@ -1,6 +1,9 @@
+"use client";
+
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Code2, Palette, Rocket, Users } from "lucide-react";
+import { motion } from "framer-motion";
 
 const About = () => {
   const skills = [
@@ -32,48 +35,83 @@ const About = () => {
   ];
 
   return (
-    <section className="py-20 px-6 max-w-7xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6">
-          About <span className="gradient-text">Me</span>
-        </h2>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          I'm a passionate full-stack developer with 5+ years of experience creating 
-          digital solutions that make a difference. I love turning complex problems 
-          into simple, beautiful, and intuitive designs.
-        </p>
-      </div>
+    <section className="py-24 px-6 max-w-7xl mx-auto">
+      {/* Photo + Intro */}
+      <div className="flex flex-col lg:flex-row items-center gap-12 mb-20">
+        {/* Floating photo */}
+        <motion.div
+          className="flex-shrink-0"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+        >
+          <img
+            src="/bonsa.jpg"
+            alt="My Photo"
+            className="rounded-3xl w-64 h-64 object-cover shadow-2xl border-4 border-white"
+          />
+        </motion.div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        {features.map((feature, index) => (
-          <Card 
-            key={index} 
-            className="glass-card p-6 text-center hover-lift group"
-            style={{ animationDelay: `${index * 0.1}s` }}
+        {/* Text + Features */}
+        <div className="flex-1 space-y-6">
+          <motion.h2
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl md:text-5xl font-bold mb-4"
           >
-            <div className="text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
-              {feature.icon}
-            </div>
-            <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-            <p className="text-muted-foreground text-sm">{feature.description}</p>
-          </Card>
-        ))}
+            About <span className="gradient-text">Me</span>
+          </motion.h2>
+          <motion.p
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-lg text-muted-foreground max-w-3xl"
+          >
+            I'm a passionate full-stack developer creating digital solutions that make a difference.
+            I enjoy turning complex problems into simple, beautiful, and intuitive designs.
+          </motion.p>
+
+          {/* Features */}
+          <div className="grid md:grid-cols-2 gap-6 mt-6">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: i * 0.15, duration: 0.5 }}
+              >
+                <Card className="glass-card p-6 text-center cursor-pointer hover:-translate-y-2 hover:scale-105 hover:shadow-2xl transition-all duration-500">
+                  <div className="text-primary mb-4">{feature.icon}</div>
+                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div className="glass-card p-8 rounded-3xl">
+      {/* Skills */}
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="glass-card p-8 rounded-3xl"
+      >
         <h3 className="text-2xl font-bold mb-6 text-center">Technologies & Tools</h3>
         <div className="flex flex-wrap gap-3 justify-center">
-          {skills.map((skill, index) => (
-            <Badge 
-              key={index} 
-              variant="secondary" 
+          {skills.map((skill, i) => (
+            <Badge
+              key={i}
+              variant="secondary"
               className="px-4 py-2 text-sm bg-gradient-primary/10 border-primary/20 hover-glow transition-all duration-300"
             >
               {skill}
             </Badge>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

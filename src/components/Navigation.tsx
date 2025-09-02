@@ -45,9 +45,12 @@ const Navigation = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
               </a>
             ))}
-            <Button variant="default" className="bg-gradient-primary hover:opacity-90">
-              Resume
-            </Button>
+            {/* Resume Button */}
+            <a href="/BakerBoonsa_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <Button variant="default" className="bg-gradient-primary hover:opacity-90">
+                Resume
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -75,12 +78,15 @@ const Navigation = () => {
                   {item.label}
                 </a>
               ))}
-              <Button 
-                variant="default" 
-                className="bg-gradient-primary hover:opacity-90 w-fit"
-              >
-                Resume
-              </Button>
+              {/* Mobile Resume Button */}
+              <a href="/BakerBoonsa_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                <Button 
+                  variant="default" 
+                  className="bg-gradient-primary hover:opacity-90 w-fit"
+                >
+                  Resume
+                </Button>
+              </a>
             </div>
           </div>
         )}

@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Download, Github, Linkedin, Mail, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -17,6 +19,13 @@ const Hero = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  const handleViewWork = () => {
+    const projectsSection = document.getElementById("projects");
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -39,11 +48,7 @@ const Hero = () => {
             y: [-10, 10, -10],
             rotate: [0, 5, -5, 0],
           }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div 
           className="absolute top-40 right-32 w-24 h-24 bg-gradient-accent rounded-full opacity-15 blur-lg"
@@ -51,12 +56,7 @@ const Hero = () => {
             y: [-10, 10, -10],
             rotate: [0, 5, -5, 0],
           }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
         <motion.div 
           className="absolute bottom-32 left-1/4 w-20 h-20 bg-gradient-primary rounded-full opacity-10 blur-lg"
@@ -64,12 +64,7 @@ const Hero = () => {
             y: [-10, 10, -10],
             rotate: [0, 5, -5, 0],
           }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
         
         {/* Sparkle Effects */}
@@ -156,26 +151,30 @@ const Hero = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Button variant="hero" size="lg" className="text-lg px-8 py-6">
-              <Download className="w-5 h-5 mr-2" />
-              Download Resume
-            </Button>
+          {/* Download Resume */}
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <a href="/BakerBoonsa_Resume.pdf" download>
+              <Button variant="hero" size="lg" className="text-lg px-8 py-6">
+                <Download className="w-5 h-5 mr-2" />
+                Download Resume
+              </Button>
+            </a>
           </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Button variant="glass" size="lg" className="text-lg px-8 py-6">
+
+          {/* View My Work */}
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+              variant="glass"
+              size="lg"
+              className="text-lg px-8 py-6"
+              onClick={handleViewWork}
+            >
               View My Work
             </Button>
           </motion.div>
         </motion.div>
         
-        {/* Enhanced Social Links */}
+        {/* Social Links */}
         <motion.div 
           className="flex justify-center space-x-8"
           initial={{ opacity: 0, y: 30 }}
@@ -183,9 +182,9 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           {[
-            { icon: Github, href: "#" },
-            { icon: Linkedin, href: "#" },
-            { icon: Mail, href: "#" }
+            { icon: Github, href: "https://github.com/Bakerboonsa11" },
+            { icon: Linkedin, href: "https://www.linkedin.com/in/bakerbonsa/" },
+            { icon: Mail, href: "mailto:bakerboonsa@gmail.com" }
           ].map(({ icon: Icon, href }, index) => (
             <motion.a
               key={index}
@@ -205,7 +204,7 @@ const Hero = () => {
           ))}
         </motion.div>
         
-        {/* Enhanced Scroll Indicator */}
+        {/* Scroll Indicator */}
         <motion.div 
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
           animate={{ y: [0, 10, 0] }}

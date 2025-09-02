@@ -6,26 +6,26 @@ import { ExternalLink, Github } from "lucide-react";
 const Projects = () => {
   const projects = [
     {
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with React, Node.js, and Stripe integration. Features include real-time inventory, user authentication, and admin dashboard.",
-      tech: ["React", "Node.js", "PostgreSQL", "Stripe"],
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80",
-      demoUrl: "#",
-      githubUrl: "#"
+      title: "Ethio-vist Tour Platform",
+      description: "Full-stack travel site with React, Node.js, and chapa integration. Features include real-time inventory, user authentication, and admin dashboard.",
+      tech: ["React", "Node.js", "mongoDb", "chapa"],
+      image: "visit2.png",
+      demoUrl: "https://tour-app-smoky.vercel.app/",
+      githubUrl: "https://github.com/Bakerboonsa11/tourApp/"
     },
     {
-      title: "AI Task Manager",
-      description: "Intelligent task management app with AI-powered prioritization and smart scheduling. Built with modern React and integrated with OpenAI API.",
-      tech: ["React", "TypeScript", "OpenAI", "Tailwind"],
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=800&q=80",
-      demoUrl: "#",
-      githubUrl: "#"
+      title: "E-Commerce Platform for Sport shop  Local Businesses",
+      description: "Full-stack e-commerce solution with React, Node.js, and Stripe integration. Features include real-time inventory, user authentication, and admin dashboard.",
+      tech: ["React", "Node.js", "PostgreSQL", "Stripe"],
+      image: "kit.png",
+      demoUrl: "https://kit-e-commerce-last-green.vercel.app/shop",
+      githubUrl: "https://github.com/Bakerboonsa11/kit-e-commerce"
     },
     {
       title: "Real-time Analytics",
       description: "Beautiful analytics dashboard with real-time data visualization, WebSocket connections, and interactive charts for business intelligence.",
       tech: ["Next.js", "WebSocket", "Chart.js", "MongoDB"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+      image:"soon.jpg",
       demoUrl: "#",
       githubUrl: "#"
     }
@@ -52,7 +52,7 @@ const Projects = () => {
           >
             <div className="relative overflow-hidden">
               <img 
-                src={project.image} 
+                src={`/${project.image}`}
                 alt={project.title}
                 className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
               />
