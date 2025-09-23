@@ -4,137 +4,100 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Send } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { toast } from "@/components/ui/use-toast";
+
+const formSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email." }),
+  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+});
 
 const Contact = () => {
-  const contactInfo = [
-    {
-      icon: <Mail className="w-6 h-6" />,
-      title: "Email",
-      value: "bakerboonsa@gmail.com",
-      href: "mailto:bakerboonsa@gmail.com"
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
     },
-    {
-      icon: <Phone className="w-6 h-6" />,
-      title: "Phone",
-      value: "+251 949 303 825",
-      href: "tel:+251949303825"
-    },
-    {
-      icon: <MapPin className="w-6 h-6" />,
-      title: "Location",
-      value: "Ethiopia",
-      href: "#"
-    }
-  ];
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+    toast({ title: "Message Sent!", description: "Thanks for reaching out. I'll get back to you soon." });
+    form.reset();
+  }
 
   return (
-    <section className="py-20 px-6 max-w-7xl mx-auto">
-      {/* Heading */}
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6">
+    <section className="py-28 px-6 max-w-4xl mx-auto">
+      <div className="text-center mb-20">
+        <h2 className="text-5xl md:text-6xl font-bold mb-6">
           Get In <span className="gradient-text">Touch</span>
         </h2>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Ready to bring your ideas to life? Let's collaborate and create 
-          something amazing together. I'm always excited to work on new projects.
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          Have a project in mind or just want to say hello? I'd love to hear from you. 
+          Fill out the form below and I'll get back to you as soon as possible.
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-12">
-        {/* Contact Form */}
-        <Card className="glass-card p-8">
-          <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
-          <form className="space-y-6">
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-2">Name</label>
-                <Input 
-                  placeholder="Your name" 
-                  className="bg-background/50 border-glass-border focus:border-primary"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Email</label>
-                <Input 
-                  type="email" 
-                  placeholder="your@email.com" 
-                  className="bg-background/50 border-glass-border focus:border-primary"
-                />
-              </div>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-2">Subject</label>
-              <Input 
-                placeholder="Project inquiry" 
-                className="bg-background/50 border-glass-border focus:border-primary"
+      <Card className="p-8 md:p-12 bg-primary/5 border-primary/20">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="your.email@example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
             </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-2">Message</label>
-              <Textarea 
-                placeholder="Tell me about your project..." 
-                rows={6}
-                className="bg-background/50 border-glass-border focus:border-primary resize-none"
-              />
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Message</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Tell me about your project..." className="min-h-[150px]" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex justify-end">
+              <Button type="submit" size="lg" className="bg-gradient-primary hover:opacity-90">
+                <Send className="w-5 h-5 mr-2" />
+                Send Message
+              </Button>
             </div>
-            
-            <Button 
-              type="submit" 
-              className="w-full bg-gradient-primary hover:opacity-90 glow"
-              size="lg"
-            >
-              Send Message
-            </Button>
           </form>
-        </Card>
-
-        {/* Contact Info */}
-        <div className="space-y-8">
-          <div className="glass-card p-8">
-            <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
-            <p className="text-muted-foreground mb-8">
-              I'm always interested in new opportunities and collaborations. 
-              Whether you have a project in mind or just want to say hello, 
-              feel free to reach out!
-            </p>
-            
-            <div className="space-y-6">
-              {contactInfo.map((info, index) => (
-                <a
-                  key={index}
-                  href={info.href}
-                  className="flex items-center gap-4 p-4 rounded-lg border border-glass-border hover:border-primary/50 transition-colors hover-lift group"
-                >
-                  <div className="text-primary group-hover:scale-110 transition-transform">
-                    {info.icon}
-                  </div>
-                  <div>
-                    <p className="font-medium">{info.title}</p>
-                    <p className="text-muted-foreground">{info.value}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-          
-          {/* CTA Card */}
-          <Card className="glass-card p-8 text-center bg-gradient-primary/5">
-            <h4 className="text-xl font-bold mb-4">Ready to Start?</h4>
-            <p className="text-muted-foreground mb-6">
-              Let's discuss your project and turn your vision into reality.
-            </p>
-            <Button 
-              variant="outline" 
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-            >
-              Schedule a Call
-            </Button>
-          </Card>
-        </div>
-      </div>
+        </Form>
+      </Card>
     </section>
   );
 };

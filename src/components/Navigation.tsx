@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -24,7 +25,7 @@ const Navigation = () => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'glass-card m-4 rounded-2xl' : 'bg-transparent'
+      scrolled ? 'bg-background/80 backdrop-blur-lg shadow-lg' : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
@@ -65,31 +66,32 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-glass-border">
-            <div className="flex flex-col space-y-4 pt-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-              {/* Mobile Resume Button */}
-              <a href="/BakerBoonsa_Resume.pdf" target="_blank" rel="noopener noreferrer">
-                <Button 
-                  variant="default" 
-                  className="bg-gradient-primary hover:opacity-90 w-fit"
-                >
-                  Resume
-                </Button>
+        <div className={`fixed inset-0 z-40 bg-background/90 backdrop-blur-xl md:hidden transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}>
+          <div className="flex flex-col items-center justify-center h-full space-y-8">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="text-2xl text-foreground hover:text-primary transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                {item.label}
               </a>
-            </div>
+            ))}
+            {/* Mobile Resume Button */}
+            <a href="/BakerBoonsa_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <Button 
+                variant="default" 
+                size="lg"
+                className="bg-gradient-primary hover:opacity-90 mt-8"
+              >
+                Resume
+              </Button>
+            </a>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
